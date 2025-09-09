@@ -1,0 +1,79 @@
+[
+  {
+    "id": "rfp_cruncher",
+    "name": "RFP Cruncher",
+    "services": [
+      {
+        "id": "python_backend",
+        "name": "Python Backend",
+        "start_cmd": "bash -c 'eval \"$($(which conda) shell.bash hook)\" && conda activate aienv && cd /opt/preslaes/AI_Projects/RFP_Cruncher/Python_Backend && nohup uvicorn src.api.main:app --host 0.0.0.0 --port 2999 > logs/python_backend.log 2>&1 &'",
+        "cwd": "/opt/preslaes/AI_Projects/RFP_Cruncher/Python_Backend",
+        "log_file": "/opt/preslaes/AI_Projects/RFP_Cruncher/Python_Backend/logs/python_backend.log",
+        "port": 2999
+      },
+      {
+        "id": "java_backend",
+        "name": "Java Backend",
+        "start_cmd": "bash -c 'cd /opt/preslaes/AI_Projects/RFP_Cruncher/Java_Backend && source .env && nohup ./mvnw spring-boot:run > logs/java_backend.log 2>&1 &'",
+        "cwd": "/opt/preslaes/AI_Projects/RFP_Cruncher/Java_Backend",
+        "log_file": "/opt/preslaes/AI_Projects/RFP_Cruncher/Java_Backend/logs/java_backend.log",
+        "port": 3000
+      },
+      {
+        "id": "frontend",
+        "name": "Frontend",
+        "start_cmd": "bash -c 'cd /opt/preslaes/AI_Projects/RFP_Cruncher/Frontend && nohup npm start -- --host 0.0.0.0 --port 3001 > logs/frontend.log 2>&1 &'",
+        "cwd": "/opt/preslaes/AI_Projects/RFP_Cruncher/Frontend",
+        "log_file": "/opt/preslaes/AI_Projects/RFP_Cruncher/Frontend/logs/frontend.log",
+        "port": 3001
+      }
+    ]
+  },
+  {
+    "id": "customer_profiler",
+    "name": "Customer Profiler",
+    "services": [
+      {
+        "id": "streamlit_app",
+        "name": "Streamlit App",
+        "start_cmd": "bash -c 'eval \"$($(which conda) shell.bash hook)\" && conda activate profilerenv && cd /opt/preslaes/AI_Projects/Customer_Profiler && nohup streamlit run app.py --server.port=8501 --server.address=0.0.0.0 > logs/streamlit.log 2>&1 &'",
+        "cwd": "/opt/preslaes/AI_Projects/Customer_Profiler",
+        "log_file": "/opt/preslaes/AI_Projects/Customer_Profiler/logs/streamlit.log",
+        "port": 8501
+      }
+    ]
+  },
+  {
+    "id": "farisight_analytics",
+    "name": "FariSight Analytics",
+    "services": [
+      {
+        "id": "uvicorn_backend",
+        "name": "Backend (Uvicorn)",
+        "start_cmd": "bash -c 'export PYTHONPATH=/opt/preslaes/AI_Projects/FariSight_Analytics && eval \"$($(which conda) shell.bash hook)\" && conda activate aienv && cd /opt/preslaes/AI_Projects/FariSight_Analytics && nohup uvicorn backend.app:app --host 0.0.0.0 --port 3002 > logs/uvicorn.log 2>&1 &'",
+        "stop_cmd": "pkill -f 'uvicorn backend.app:app'",
+        "cwd": "/opt/preslaes/AI_Projects/FariSight_Analytics",
+        "log_file": "/opt/preslaes/AI_Projects/FariSight_Analytics/logs/uvicorn.log",
+        "port": 3002
+      },
+      {
+        "id": "python_generator",
+        "name": "Python Generator",
+        "start_cmd": "bash -c 'export PYTHONPATH=/opt/preslaes/AI_Projects/FariSight_Analytics && eval \"$($(which conda) shell.bash hook)\" && conda activate aienv && cd /opt/preslaes/AI_Projects/FariSight_Analytics && nohup uvicorn data.generator:app --host 0.0.0.0 --reload --port 3003 > logs/python.log 2>&1 &'",
+        "stop_cmd": "pkill -f 'uvicorn data.generator:app'",
+        "cwd": "/opt/preslaes/AI_Projects/FariSight_Analytics",
+        "log_file": "/opt/preslaes/AI_Projects/FariSight_Analytics/logs/python.log",
+        "port": 3003
+      },
+      {
+        "id": "streamlit_frontend",
+        "name": "Frontend (Streamlit)",
+        "start_cmd": "bash -c 'export PYTHONPATH=/opt/preslaes/AI_Projects/FariSight_Analytics && eval \"$($(which conda) shell.bash hook)\" && conda activate aienv && cd /opt/preslaes/AI_Projects/FariSight_Analytics && nohup streamlit run ./frontend/app.py --server.port=3004 --server.address=0.0.0.0 > logs/streamlit.log 2>&1 &'",
+        "stop_cmd": "pkill -f 'streamlit run ./frontend/app.py'",
+        "cwd": "/opt/preslaes/AI_Projects/FariSight_Analytics",
+        "log_file": "/opt/preslaes/AI_Projects/FariSight_Analytics/logs/streamlit.log",
+        "port": 3004
+      }
+    ]
+  }
+]
